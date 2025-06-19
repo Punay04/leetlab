@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
-async function coonectDb() {
-  const mongodbUrl = process.env.MONGODB_URI;
+async function connectDb() {
+  const mongodbUrl = process.env.NEXT_PUBLIC_MONGODB_URL;
 
   if (!mongodbUrl) {
     throw new Error("MONGODB_URI environment variable is not set");
@@ -16,4 +16,4 @@ async function coonectDb() {
   }
 }
 
-export default coonectDb;
+export default connectDb;
