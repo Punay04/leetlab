@@ -1,5 +1,6 @@
 "use client";
 
+import CodeEditor from "@/components/codeEditor";
 import React, { useEffect, useState } from "react";
 
 export default function Page({
@@ -9,13 +10,12 @@ export default function Page({
 }) {
   const { problemId } = React.use(params);
   const [problem, setProblem] = useState<any>(null);
+  const [code, setCode] = useState("");
 
   useEffect(() => {
     const fetchProblem = async () => {
       try {
-        const response = await fetch(
-          `/api/getProblem?problemId=${problemId}`
-        );
+        const response = await fetch(`/api/getProblem?problemId=${problemId}`);
         if (!response.ok) throw new Error("Failed to fetch problem");
         const data = await response.json();
         setProblem(data);
@@ -62,6 +62,7 @@ export default function Page({
               </div>
             ))}
           </div>
+          <CodeEditor />
         </div>
       ) : (
         <div className="text-gray-500 animate-pulse">Loading problem...</div>
