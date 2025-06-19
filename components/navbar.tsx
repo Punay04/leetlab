@@ -23,10 +23,11 @@ const NavbarContent = [
 
 const Navbar = () => {
   const user = useUser();
+  const email = user.user?.emailAddresses[0]?.emailAddress;
   const router = useRouter();
   return (
     <div>
-      <nav className="flex items-center justify-between px-6 py-4 bg-black shadow-md">
+      <nav className="flex items-center justify-between px-6 py-4 bg-black shadow-md border-b border-gray-800">
         <div className="flex items-center space-x-6">
           <Image
             src={"logo.svg"}
@@ -47,7 +48,13 @@ const Navbar = () => {
           ))}
         </div>
 
-        <div>
+        <div className="flex items-center space-x-4">
+          {email === "9thbpunaykukreja@gmail.com" && user.isSignedIn && (
+            <PulsatingButton className="bg-yellow-500 font-semibold px-4 py-2 rounded-md text-black hover:bg-yellow-400 transition-all"
+            onClick={() => router.push("/addProblem")}>
+              Add Problem
+            </PulsatingButton>
+          )}
           {user.isSignedIn && <UserButton />}
           {!user.isSignedIn && (
             <div className="flex items-center space-x-4">
