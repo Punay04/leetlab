@@ -17,7 +17,17 @@ export default function Page({
   params: Promise<{ problemId: string }>;
 }) {
   const { problemId } = React.use(params);
-  const [problem, setProblem] = useState<any>(null);
+  type Difficulty = "Easy" | "Medium" | "Hard";
+  type Problem = {
+    title: string;
+    description: string;
+    inputFormat: string;
+    outputFormat: string;
+    constraints: string;
+    difficulty: Difficulty;
+    examples: Array<{ input: string; output: string }>;
+  };
+  const [problem, setProblem] = useState<Problem | null>(null);
 
   useEffect(() => {
     const fetchProblem = async () => {

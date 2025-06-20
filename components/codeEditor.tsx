@@ -18,7 +18,7 @@ export default function CodeEditor({
   examples: { input: string; output: string }[];
   problemId: string;
 }) {
-  const [code, setCode] = useState();
+  const [code, setCode] = useState<string>("");
   const [language, setLanguage] = useState("javascript");
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);

@@ -1,8 +1,15 @@
 "use client";
 import React from "react";
 
+type Problem = {
+  _id: string;
+  title: string;
+  difficulty: "Easy" | "Medium" | "Hard";
+  tags: string[];
+};
+
 const ProblemsPage = () => {
-  const [problems, setProblems] = React.useState([]);
+  const [problems, setProblems] = React.useState<Problem[]>([]);
 
   React.useEffect(() => {
     const fetchProblems = async () => {
@@ -45,7 +52,7 @@ const ProblemsPage = () => {
                 <th className="px-4 py-3 border-b border-slate-700">
                   Difficulty
                 </th>
-                <th className="px-4 py-3 border-b border-slate-700">Tags</th>
+                <th className="px-4 py-3 border-b border-slate-700">Topics</th>
               </tr>
             </thead>
             <tbody>
@@ -77,8 +84,8 @@ const ProblemsPage = () => {
                     >
                       {problem.difficulty}
                     </td>
-                    <td className="px-4 py-3 text-gray-300">
-                      {problem.tags.join(", ")}
+                    <td className="px-4 py-3 text-gray-300 ">
+                      <p className=""> {problem.tags.join(", ")}</p>
                     </td>
                   </tr>
                 ))
