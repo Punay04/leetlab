@@ -1,5 +1,4 @@
 "use client";
-import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Hero from "@/components/hero";
 import Navbar from "@/components/navbar";
@@ -11,7 +10,6 @@ export default function Home() {
       <main className="flex-1">
         <Header />
         <Hero />
-        <Footer />
       </main>
     </div>
   );

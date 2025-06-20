@@ -1,5 +1,6 @@
 "use client";
 
+import { useUser } from "@clerk/nextjs";
 import Editor from "@monaco-editor/react";
 import axios from "axios";
 import { useState } from "react";
@@ -12,13 +13,18 @@ const languageMap: Record<string, number> = {
 
 export default function CodeEditor({
   examples = [],
+  problemId,
 }: {
   examples: { input: string; output: string }[];
+  problemId: string;
 }) {
-  const [code, setCode] = useState(`// Write your code here`);
+  const [code, setCode] = useState();
   const [language, setLanguage] = useState("javascript");
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const user = useUser();
+  const userId = user.user?.id;
 
   const runCode = async () => {
     setLoading(true);
@@ -85,9 +91,6 @@ export default function CodeEditor({
           allPassed = false;
           break;
         }
-        else{
-          
-        }
       } catch (err) {
         setOutput("Submission failed.");
         allPassed = false;
@@ -96,7 +99,34 @@ export default function CodeEditor({
     }
 
     if (allPassed) {
-      setOutput("✅ All testcases passed!");
+      try {
+        const res = await fetch("/api/solvedProblem", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId,
+            problemId,
+            code
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          if (data?.error === "Problem already solved by this user") {
+            setOutput("✅ All testcases passed!");
+          } else {
+            throw new Error(data?.error || "Failed to save solved problem");
+          }
+        } else {
+          setOutput("✅ All testcases passed");
+        }
+      } catch (error) {
+        console.error("Error saving solved problem:", error);
+        setOutput("✅ Passed, but failed to record in DB.");
+      }
     }
   };
 

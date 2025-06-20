@@ -99,7 +99,7 @@ export default function Page({
           </aside>
 
           <main className="lg:w-1/2 p-6 overflow-y-auto h-screen">
-            <CodeEditor examples={problem.examples} />
+            <CodeEditor examples={problem.examples} problemId={problemId} />
           </main>
         </div>
       ) : (

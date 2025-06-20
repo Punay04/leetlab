@@ -25,7 +25,8 @@ const Header = () => {
         A playground for your coding skills
       </p>
       <p className="text-md sm:text-lg text-gray-400 mt-2 text-center max-w-[500px]">
-        Explore challenges, sharpen your logic, and connect with developers worldwide.
+        Explore challenges, sharpen your logic, and connect with developers
+        worldwide.
       </p>
 
       <div className="mt-10">
@@ -34,13 +35,16 @@ const Header = () => {
           shimmerSize="2px"
           background="orange"
           onClick={() => router.push("/problems")}
-          className="text-white text-lg sm:text-xl font-semibold px-6 py-2 rounded-md shadow-lg hover:scale-105 transition-transform duration-200"
+          className="text-white text-lg sm:text-xl font-semibold px-6 py-2 rounded-md shadow-lg hover:scale-105 transition-transform duration-200 bg-yellow-500"
         >
           Start Coding
         </ShimmerButton>
       </div>
 
-      <RetroGrid opacity={0.2} className="absolute inset-0 w-full h-full pointer-events-none" />
+      <RetroGrid
+        opacity={0.2}
+        className="absolute inset-0 w-full h-full pointer-events-none"
+      />
     </div>
   );
 };
