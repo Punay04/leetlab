@@ -4,7 +4,7 @@ import problemModel from "@/models/problems";
 export async function GET() {
   try {
     await connectDb();
-    const problems = await problemModel.find({}).sort({ difficulty: 1 });
+    const problems = await problemModel.find({}).sort({ createdAt: -1 });
 
     return new Response(JSON.stringify(problems), {
       status: 200,

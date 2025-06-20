@@ -85,6 +85,9 @@ export default function CodeEditor({
           allPassed = false;
           break;
         }
+        else{
+          
+        }
       } catch (err) {
         setOutput("Submission failed.");
         allPassed = false;
@@ -135,9 +138,22 @@ export default function CodeEditor({
         options={{ fontSize: 14, minimap: { enabled: false } }}
       />
 
-      <div className="mt-4 bg-gray-900 text-white p-4 rounded min-h-[100px] whitespace-pre-wrap text-sm">
-        <strong>Output:</strong>
-        <div className="mt-2">{output}</div>
+      <div className="mt-6 rounded-lg border border-gray-700 bg-[#1e1e1e] p-4 shadow-inner">
+        <div className="mb-2 text-sm font-semibold text-gray-300 border-b border-gray-700 pb-1">
+          Output
+        </div>
+
+        <div
+          className={`whitespace-pre-wrap text-sm px-1 overflow-auto max-h-64 ${
+            output.includes("✅")
+              ? "text-green-400"
+              : output.includes("❌") || output.toLowerCase().includes("error")
+              ? "text-red-400"
+              : "text-gray-200"
+          }`}
+        >
+          {output}
+        </div>
       </div>
     </div>
   );

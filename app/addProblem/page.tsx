@@ -45,6 +45,8 @@ const AddProblem = () => {
         tags: tagsRef.current?.value?.split(",").map((tag) => tag.trim()), // converts to array
       }),
     });
+    alert("Problem added successfully!");
+    router.push("/problems");
   }
 
   return (

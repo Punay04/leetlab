@@ -21,10 +21,9 @@ const ProblemsPage = () => {
     fetchProblems();
   }, []);
 
-  // Helper to style difficulty
   const difficultyStyle = {
     Easy: "text-green-400 font-semibold",
-    Medium: "text-yellow-400 font-semibold",
+    Medium: "text-blue-400 font-semibold",
     Hard: "text-red-400 font-semibold",
   };
 
