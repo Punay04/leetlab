@@ -21,6 +21,10 @@ export default function Dashboard() {
 
   const [isOpen, setIsOpen] = React.useState(false);
 
+  const [openedProblem, setOpenedProblem] = React.useState<Problem | null>(
+    null
+  );
+
   useEffect(() => {
     const fetchTotalProblems = async () => {
       try {
@@ -65,6 +69,15 @@ export default function Dashboard() {
     (p) => p.difficulty === "Hard"
   ).length;
 
+  function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
+    const problemId = e.currentTarget.textContent;
+    const problem = solvedProblems.find((p) => p.title === problemId);
+    if (problem) {
+      setOpenedProblem(problem);
+      setIsOpen(true);
+    }
+  }
+
   return (
     <div className="bg-black min-h-screen">
       <Navbar />
@@ -76,7 +89,7 @@ export default function Dashboard() {
           </h1>
         </div>
 
-        <div className="grid grid-cols-4 grid-rows-1 gap-4 p-5">
+        <div className="grid sm:grid-cols-4 sm:grid-rows-1   gap-4 p-5">
           <div className="p-6 bg-gray-800 rounded-lg shadow-lg">
             <h1 className="text-gray-400">
               <span className="text-yellow-500 text-3xl font-bold">
@@ -123,14 +136,14 @@ export default function Dashboard() {
             {solvedProblems.map((problem) => (
               <div
                 key={problem._id}
-                className="p-6 bg-gray-800 rounded-lg shadow-lg w-full flex justify-between "
+                className="p-6 bg-gray-800 rounded-lg shadow-lg w-full flex justify-between mb-1"
               >
-                <h2
-                  onClick={() => setIsOpen(true)}
+                <button
+                  onClick={handleClick}
                   className="text-xl text-yellow-500 font-medium hover:text-yellow-400 hover:underline cursor-pointer"
                 >
                   {problem.title}
-                </h2>
+                </button>
                 <p className="text-sm text-gray-400">
                   {problem.createdAt &&
                     new Date(problem.createdAt).toLocaleDateString()}
@@ -149,14 +162,18 @@ export default function Dashboard() {
               <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                 <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-3/4 max-w-2xl">
                   <h2 className="text-xl text-yellow-500 font-medium mb-4">
-                    {solvedProblems[0].title}
+                    {openedProblem?.title}
                   </h2>
-                  <pre className="text-gray-400 whitespace-pre-wrap">
-                    {solvedProblems[0].code}
-                  </pre>
+
+                  <div className="max-h-96 overflow-y-auto overflow-x-auto scroll-smooth rounded bg-gray-900 p-4">
+                    <pre className="text-gray-400 whitespace-pre-wrap">
+                      {openedProblem?.code}
+                    </pre>
+                  </div>
+
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-400"
+                    className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 cutrsor-pointer "
                   >
                     Close
                   </button>
