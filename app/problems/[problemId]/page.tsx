@@ -91,21 +91,27 @@ export default function Page({
             <h2 className="font-semibold text-lg mt-6 mb-2 text-gray-200">
               Examples
             </h2>
-            {problem.examples?.map((ex: any, idx: number) => (
-              <div
-                key={idx}
-                className="mb-4 border border-gray-700 rounded-md overflow-hidden"
-              >
-                <div className="px-4 py-2 bg-gray-800 text-sm text-gray-400">
-                  Input
+            {problem.examples?.map(
+              (ex: { input: string; output: string }, idx: number) => (
+                <div
+                  key={idx}
+                  className="mb-4 border border-gray-700 rounded-md overflow-hidden"
+                >
+                  <div className="px-4 py-2 bg-gray-800 text-sm text-gray-400">
+                    Input
+                  </div>
+                  <pre className="px-4 py-2 bg-gray-900 text-sm">
+                    {ex.input}
+                  </pre>
+                  <div className="px-4 py-2 bg-gray-800 text-sm text-gray-400">
+                    Output
+                  </div>
+                  <pre className="px-4 py-2 bg-gray-900 text-sm">
+                    {ex.output}
+                  </pre>
                 </div>
-                <pre className="px-4 py-2 bg-gray-900 text-sm">{ex.input}</pre>
-                <div className="px-4 py-2 bg-gray-800 text-sm text-gray-400">
-                  Output
-                </div>
-                <pre className="px-4 py-2 bg-gray-900 text-sm">{ex.output}</pre>
-              </div>
-            ))}
+              )
+            )}
           </aside>
 
           <main className="lg:w-1/2 p-6 overflow-y-auto h-screen">

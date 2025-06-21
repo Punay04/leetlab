@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
 
     const parsedExamples = parseExamples(examples);
 
-    const newProblem = await problemModel.create({
+    await problemModel.create({
       title,
       description,
       inputFormat,

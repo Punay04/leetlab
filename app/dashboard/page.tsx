@@ -43,7 +43,18 @@ export default function Dashboard() {
         if (!response.ok) throw new Error("Failed to fetch solved problems");
         const data = await response.json();
 
-        const extracted = data.map((entry: any) => ({
+        interface SolvedProblemEntry {
+          problemId: Problem;
+          createdAt?: string;
+          code?: string;
+        }
+
+        interface ExtractedProblem extends Problem {
+          createdAt?: string;
+          code?: string;
+        }
+
+        const extracted: ExtractedProblem[] = (data as SolvedProblemEntry[]).map((entry: SolvedProblemEntry): ExtractedProblem => ({
           ...entry.problemId,
           createdAt: entry.createdAt,
           code: entry.code,

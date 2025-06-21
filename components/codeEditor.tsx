@@ -52,6 +52,8 @@ export default function CodeEditor({
         "No output";
       setOutput(result.trim());
     } catch (err) {
+      console.log("Error running code:", err);
+
       setOutput("Error running code.");
     }
     setLoading(false);
@@ -92,6 +94,8 @@ export default function CodeEditor({
           break;
         }
       } catch (err) {
+        console.log("Error running test case:", err);
+
         setOutput("Submission failed.");
         allPassed = false;
         break;
@@ -108,7 +112,7 @@ export default function CodeEditor({
           body: JSON.stringify({
             userId,
             problemId,
-            code
+            code,
           }),
         });
 
